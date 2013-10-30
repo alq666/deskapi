@@ -112,6 +112,13 @@ class DeskApi2(DeskSession):
             'href': 'articles',
         })
 
+    def cases(self):
+
+        return self.collection({
+            'class': 'case',
+            'href': 'cases',
+    })
+
 
 class DeskCollection(DeskSession):
 
@@ -237,6 +244,22 @@ class DeskObject(DeskSession):
         return self.collection(
             self._links['translations'],
         )
+
+@DeskSession.register_class('case')
+class DeskCaseCollection(DeskCollection):
+
+    def create(self, **kwargs):
+
+        create_kwargs = {
+            "name": '',
+            "subject": '',
+            "status": 'new',
+	    "type": '',
+        }
+
+        create_kwargs.update(kwargs)
+
+        return super(DeskCaseCollection, self).create(**create_kwargs)
 
 
 @DeskSession.register_class('topic')
