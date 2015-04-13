@@ -16,6 +16,7 @@ if sys.version_info < (3, 3):
 
 install_requires = [
     'requests',
+    'requests_oauthlib'
 ]
 
 
