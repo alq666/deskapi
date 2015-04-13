@@ -44,10 +44,10 @@ site name will be ``example``. Authentication information is any `valid
 Requests auth object`_. The simplest thing to provide is a username
 and password. For example::
 
-  >>> from deskapi.models import DeskSession
+  >>> from deskapi.models import DeskApi2
 
-  >>> session = DeskSession(
-  ...     sitename='example',
+  >>> session = DeskApi2(
+  ...     sitename='testing',
   ...     auth=('nathan@example.com', '53kr17')
   ... )
 
@@ -58,8 +58,8 @@ Once you have a session ID, you can retrieve a list of Articles_::
 `Article fields`_ map to Python properties::
 
   >>> article = articles[0]
-  >>> article.subject
-  'Help Topic'
+  >>> str(article.subject)
+  'Subject 1'
   >>> article.in_support_center
   True
 
@@ -117,7 +117,7 @@ like a ``dict``, keyed by locale::
   >>> translations = article.translations
   >>> len(translations)
   2
-  >>> translations['es'].subject
+  >>> str(translations['es'].subject)
   'Tema de Ayuda'
 
 
@@ -133,12 +133,14 @@ Objects
 Updating Objects
 ~~~~~~~~~~~~~~~~
 
-You can make changes to an object and save those back to desk.
+You can make changes to an object and save those back to Desk. Calling
+``.save()`` will return the saved instance.
 
 ::
 
    >>> article.body = 'Test Content'
-   >>> article.save()
+   >>> article.save()  # doctest: +ELLIPSIS
+   <deskapi.models.DeskObject object at ...>
 
 Alternately you can use the ``update`` method to update the
 information in Desk *without* updating the local Python object. The
